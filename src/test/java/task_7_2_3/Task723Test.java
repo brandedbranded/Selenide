@@ -17,7 +17,7 @@ public class Task723Test extends BaseTest {
     @Test
     @DisplayName("Добавление товара в корзину")
     @Description("Товар отображается в корзине")
-    public void addToBasket() throws InterruptedException {
+    public void addToBasket() {
         openBrowser(WB_PAGE);
         searchInput.sendKeys(SEARCH_PHONE);
         searchBtn.click();
