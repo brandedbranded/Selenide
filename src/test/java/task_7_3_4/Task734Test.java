@@ -10,6 +10,7 @@ import static common.Urls.ADD_ELEMENT;
 import static common.Urls.INPUTS;
 import static common.Urls.LOGIN;
 import static common.Urls.REDIRECTOR;
+import static condition.MyCondition.button;
 import static elements.InternetPageElements.addElement;
 import static elements.InternetPageElements.addedManually;
 import static elements.InternetPageElements.flashAtrbt;
@@ -32,7 +33,7 @@ public class Task734Test extends BaseTest {
     @Description("Ожидание появления элемента")
     public void appearanceOfElementTest() {
         openBrowser(ADD_ELEMENT);
-        addElement.click();
+        addElement.shouldBe(button("button")).click();
         addedManually.should(visible);
     }
 
@@ -41,7 +42,7 @@ public class Task734Test extends BaseTest {
     @Description("Ожидание исчезновения элемента")
     public void disappearanceOfElementTest() {
         openBrowser(ADD_ELEMENT);
-        addElement.click();
+        addElement.shouldBe(button("button")).click();
         addedManually.should(visible).click();
         addedManually.shouldNot(visible);
     }
@@ -51,7 +52,7 @@ public class Task734Test extends BaseTest {
     @Description("Ожидание появления текста")
     public void appearanceOfTextTest() {
         openBrowser(ADD_ELEMENT);
-        addElement.click();
+        addElement.shouldBe(button("button")).click();
         addedManually.should(visible).shouldHave(text("Delete"));
     }
 
