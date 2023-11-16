@@ -22,7 +22,6 @@ public class BaseTest {
 
     public void openBrowser(String url) {
         Selenide.open(url);
-        //$x("//img[@alt='Wildberries']").should(exist, visible, enabled);
         $x("//body").should(exist, visible, enabled);
     }
 
@@ -32,8 +31,7 @@ public class BaseTest {
     }
 
     @AfterEach
-    public void tearDown() throws InterruptedException {
+    public void tearDown() {
         Selenide.closeWebDriver();
     }
-
 }

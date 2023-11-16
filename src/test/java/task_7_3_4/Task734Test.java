@@ -105,5 +105,4 @@ public class Task734Test extends BaseTest {
         TimeUnit.SECONDS.sleep(2);
         textOnPage.should(exist);
     }
-
 }
