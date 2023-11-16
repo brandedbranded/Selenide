@@ -16,6 +16,7 @@ public class BaseTest {
     public void setUp() {
         WebDriverManager.chromedriver().setup();
         Configuration.browser = "chrome";
+
         Configuration.headless = false;
         Configuration.timeout = 5000;
     }
@@ -32,8 +33,7 @@ public class BaseTest {
     }
 
     @AfterEach
-    public void tearDown() throws InterruptedException {
+    public void tearDown() {
         Selenide.closeWebDriver();
     }
-
 }
