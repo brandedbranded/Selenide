@@ -1,4 +1,4 @@
-package task_7_4_3Test;
+package task_7_4_3;
 
 import static com.codeborne.selenide.Condition.interactable;
 import static com.codeborne.selenide.Selenide.confirm;

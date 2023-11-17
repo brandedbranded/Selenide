@@ -1,11 +1,18 @@
 package task_7_2_3;
 
-import static assertsForTest.Assert.*;
-import static com.codeborne.selenide.Condition.*;
-import static common.Constants.*;
-
-import static common.Urls.*;
-import static elements.WbPageElements.*;
+import static assertsForTest.Assert.verifyTextOnElement;
+import static com.codeborne.selenide.Condition.enabled;
+import static com.codeborne.selenide.Condition.exist;
+import static com.codeborne.selenide.Condition.visible;
+import static common.Constants.QUANTITY_ITEMS;
+import static common.Constants.SEARCH_PHONE;
+import static common.Urls.WB_PAGE;
+import static elements.WbPageElements.addToBasket;
+import static elements.WbPageElements.amountItemsInCart;
+import static elements.WbPageElements.firstItem;
+import static elements.WbPageElements.goToBasket;
+import static elements.WbPageElements.searchBtn;
+import static elements.WbPageElements.searchInput;
 
 import baseTest.BaseTest;
 import jdk.jfr.Description;
@@ -24,6 +31,6 @@ public class Task723Test extends BaseTest {
         firstItem.shouldBe(exist, visible, enabled).click();
         addToBasket.click();
         goToBasket.click();
-        verifyTextOnElement(amountItemsInCart, QUANTITY_ITEMS);
+        verifyTextOnElement(QUANTITY_ITEMS, amountItemsInCart);
     }
 }
