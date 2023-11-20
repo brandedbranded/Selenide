@@ -7,6 +7,7 @@ import static assertsForTest.Assert.verifyPriceOnElement;
 import static assertsForTest.Assert.verifyRedirectToHomePage;
 import static assertsForTest.Assert.verifyTextOnElement;
 import static com.codeborne.selenide.CollectionCondition.size;
+import static com.codeborne.selenide.Condition.editable;
 import static com.codeborne.selenide.Condition.enabled;
 import static com.codeborne.selenide.Condition.interactable;
 import static com.codeborne.selenide.Condition.text;
@@ -54,6 +55,8 @@ import static elements.task_744.SearchPageElements.filterForItems;
 import static elements.task_744.SearchPageElements.foundItems;
 import static elements.task_744.SearchPageElements.searchLine;
 import static elements.task_744.SearchPageElements.sortBtn;
+import static steps.StepsForTests.hoverClick;
+import static steps.StepsForTests.sendKeysToPriceFilter;
 
 import baseTest.BaseTest;
 import jdk.jfr.Description;
@@ -86,12 +89,18 @@ public class WbTests extends BaseTest {
         verifyTextOnElement("", searchLine);
     }
 
+    /**
+     * У меня тест работает четко, странно, почему у тебя не находит элемент, может не хватает
+     * ожидания из-за скорости интернета? Я добавил условие editable и увеличил ожидание с 5 до 10
+     * секунд.
+     */
     @Test
     @DisplayName("Смена города")
     @Description("Адрес пункта выдачи совпадает с тем адресом, что был предложен в списке адресов. Отображается адрес пункта выдачи.")
     public void changeCityTest() {
         addressBtn.shouldBe(visible, interactable).hover().shouldBe(visible, interactable).click();
-        searchBoxInAddress.shouldBe(visible, enabled).sendKeys("Санкт-Петербург" + Keys.ENTER);
+        searchBoxInAddress.shouldBe(visible, enabled, editable)
+            .sendKeys("Санкт-Петербург" + Keys.ENTER);
 
         firstFoundAddress.shouldHave(text("Санкт-Петербург"));
         String addressFromList = firstFoundAddress.shouldBe(visible, enabled).getText();
@@ -109,7 +118,7 @@ public class WbTests extends BaseTest {
     @DisplayName("Добавление товара в избранное")
     @Description("Товар добавляется в избранное, счетчик изменяется")
     public void addItemToFavorite() {
-        filterBtn.shouldBe(visible, interactable).hover().shouldBe(visible, interactable).click();
+        hoverClick(filterBtn);
         householdBtn.shouldBe(visible, interactable).hover();
         homeAppliancesBtn.shouldBe(visible, interactable).click();
         vacuums.shouldBe(visible, interactable).click();
@@ -139,7 +148,7 @@ public class WbTests extends BaseTest {
     @DisplayName("Работа с фильтрами")
     @Description("Фильтр активен, фильтр отображается на странице, есть кнопка Сбросить всё")
     public void useFiltres() {
-        filterBtn.shouldBe(visible, interactable).hover().shouldBe(visible, interactable).click();
+        hoverClick(filterBtn);
         electronicsBtn.shouldBe(visible, interactable).hover();
         laptopsAndPc.shouldBe(interactable).click();
         laptops.shouldBe(interactable).click();
@@ -147,10 +156,8 @@ public class WbTests extends BaseTest {
         verifyTextOnElement("Ноутбуки и ультрабуки", titleAfterSearch);
 
         allFiltres.shouldBe(interactable).click();
-        priceMin.shouldBe(visible).clear();
-        priceMin.sendKeys("100000");
-        priceMax.shouldBe(visible).clear();
-        priceMax.shouldBe(visible).sendKeys("149000");
+        sendKeysToPriceFilter(priceMin, "100000");
+        sendKeysToPriceFilter(priceMax, "149000");
         lessThan3DaysBtn.shouldBe(interactable).click();
         brandApple.shouldBe(visible).click();
         screen133.shouldBe(visible).click();
@@ -163,5 +170,4 @@ public class WbTests extends BaseTest {
 
         amountOfItemsOnPage.shouldHave(size(Integer.parseInt(expectedAmountOfItems.getText())));
     }
-
 }

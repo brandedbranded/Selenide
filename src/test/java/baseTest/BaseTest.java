@@ -17,7 +17,7 @@ public class BaseTest {
         WebDriverManager.chromedriver().setup();
         Configuration.browser = "chrome";
         Configuration.headless = false;
-        Configuration.timeout = 5000;
+        Configuration.timeout = 10000;
     }
 
     public void openBrowser(String url) {
